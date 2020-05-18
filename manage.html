@@ -1,0 +1,526 @@
+<!DOCTYPE html >
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Air India|Manage Your Trip</title>
+<link rel="shortcut icon" type="image/png" href="images/toplogo.png">
+<link rel="stylesheet" type="text/css" href="css/airline.css" /> 
+<script src="js/jquery-3.4.1.js"></script>
+<script src="js/script.js"></script>
+<script src="js/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="css/jquery-ui.css" /> 
+<link rel="stylesheet" type="text/css" href="css/bookflight.css" /> 
+<link rel="stylesheet" href="css/jClocksGMT.css">
+<script src="js/jClocksGMT.js"></script>
+<script src="js/jquery.rotate.js"></script>
+<script>
+            $(document).ready(function(){
+
+                $('#clock_canada').jClocksGMT(
+                {
+                    title: 'Brampton, ON,Canada', 
+                    offset: '-4.0',
+					skin: 4,
+					date: true,
+					timeformat: 'HH:mm',
+					dateformat: 'YYYY/MM/DD', 
+                });				
+				$('#clock_hou').jClocksGMT(
+                {
+                    title: 'Houston, TX, USA', 
+                    offset: '-6',
+					timeformat: 'HH:mm',
+					date: true
+                });
+
+                $('#clock_india').jClocksGMT(
+                {
+                    title: 'New Delhi, India', 
+                    offset: '+5.5', 
+                    date: true, 
+                    skin: 2, 
+                    timeformat: 'HH:mm'
+                });
+
+                $('#clock_korea').jClocksGMT(
+                {
+                    title: 'Seoul, S. Korea', 
+                    offset: '+8', 
+                    skin: 3, 
+                    date: true
+                });
+
+                $('#clock_uk').jClocksGMT(
+                {   
+                    date: true, 
+                    dateformat: 'YYYY/MM/DD', 
+                    skin: 4
+                });
+
+                $('#clock_tokyo').jClocksGMT(
+                {
+                    title: 'Tokyo, Japan',
+                    offset: '+9',
+                    skin: 5,
+					timeformat: 'HH:mm'
+                });
+
+            });
+        </script>
+<style>
+#dialog {
+  display: none;
+}
+#dialog2 {
+  display: none;
+}
+  #gallery { float: left; width: 65%; min-height: 12em; }
+  .gallery.custom-state-active { background: #eee; }
+  .gallery li { float: left; width: 96px; padding: 0.4em; margin: 0 0.4em 0.4em 0; text-align: center; }
+  .gallery li h5 { margin: 0 0 0.4em; cursor: move; }
+  .gallery li a { float: right; }
+  .gallery li a.ui-icon-zoomin { float: left; }
+  .gallery li img { width: 100%; cursor: move; }
+ 
+  #trash { float: right; width: 32%; min-height: 18em; padding: 1%; }
+  #trash h4 { line-height: 16px; margin: 0 0 0.4em; }
+  #trash h4 .ui-icon { float: left; }
+  #trash .gallery h5 { display: none; }
+  </style>
+
+
+</style>
+<script>
+	$( function() {
+    $( "#tabss" ).tabs({
+      event: "mouseover"
+    }
+	);
+  } );
+
+	function showHide(){	  
+			$( function() {
+    $( "#dialog" ).dialog({
+      resizable: false,
+      height: "auto",
+      width: 400,
+      modal: true,
+      buttons: {
+        "search": function() {
+          $( this ).dialog( "close" );
+        },
+        Cancel: function() {
+          $( this ).dialog( "close" );
+        }
+      }
+    });
+  } );}
+  function showHide2(){	  
+			$( function() {
+    $( "#dialog2" ).dialog({
+      resizable: false,
+      height: "auto",
+      width: 400,
+      modal: true,
+      buttons: {
+        "search": function() {
+          $( this ).dialog( "close" );
+        },
+        Cancel: function() {
+          $( this ).dialog( "close" );
+        }
+      }
+    });
+  } );}
+  
+  $( function() {
+ 
+    // There's the gallery and the trash
+    var $gallery = $( "#gallery" ),
+      $trash = $( "#trash" );
+ 
+    // Let the gallery items be draggable
+    $( "li", $gallery ).draggable({
+      cancel: "a.ui-icon", // clicking an icon won't initiate dragging
+      revert: "invalid", // when not dropped, the item will revert back to its initial position
+      containment: "document",
+      helper: "clone",
+      cursor: "move"
+    });
+ 
+    // Let the trash be droppable, accepting the gallery items
+    $trash.droppable({
+      accept: "#gallery > li",
+      classes: {
+        "ui-droppable-active": "ui-state-highlight"
+      },
+      drop: function( event, ui ) {
+        deleteImage( ui.draggable );
+      }
+    });
+ 
+    // Let the gallery be droppable as well, accepting items from the trash
+    $gallery.droppable({
+      accept: "#trash li",
+      classes: {
+        "ui-droppable-active": "custom-state-active"
+      },
+      drop: function( event, ui ) {
+        recycleImage( ui.draggable );
+      }
+    });
+ 
+    // Image deletion function
+    var recycle_icon = "<a href='link/to/recycle/script/when/we/have/js/off' title='remove iteam' class='ui-icon ui-icon-refresh'>remove iteam</a>";
+    function deleteImage( $item ) {
+      $item.fadeOut(function() {
+        var $list = $( "ul", $trash ).length ?
+          $( "ul", $trash ) :
+          $( "<ul class='gallery ui-helper-reset'/>" ).appendTo( $trash );
+ 
+        $item.find( "a.ui-icon-plusthick" ).remove();
+        $item.append( recycle_icon ).appendTo( $list ).fadeIn(function() {
+          $item
+            .animate({ width: "48px" })
+            .find( "img" )
+              .animate({ height: "36px" });
+        });
+      });
+    }
+ 
+    // Image recycle function
+    var trash_icon = "<a href='link/to/trash/script/when/we/have/js/off' title='Add to cart' class='ui-icon ui-icon-plusthick'>Add to cart</a>";
+    function recycleImage( $item ) {
+      $item.fadeOut(function() {
+        $item
+          .find( "a.ui-icon-refresh" )
+            .remove()
+          .end()
+          .css( "width", "96px")
+          .append( trash_icon )
+          .find( "img" )
+            .css( "height", "72px" )
+          .end()
+          .prependTo( $gallery )
+          .fadeIn();
+      });
+    }
+ 
+    // Image preview function, demonstrating the ui.dialog used as a modal window
+    function viewLargerImage( $link ) {
+      var src = $link.attr( "href" ),
+        title = $link.siblings( "img" ).attr( "alt" ),
+        $modal = $( "img[src$='" + src + "']" );
+ 
+      if ( $modal.length ) {
+        $modal.dialog( "open" );
+      } else {
+        var img = $( "<img alt='" + title + "' width='384' height='288' style='display: none; padding: 8px;' />" )
+          .attr( "src", src ).appendTo( "body" );
+        setTimeout(function() {
+          img.dialog({
+            title: title,
+            width: 400,
+            modal: true
+          });
+        }, 1 );
+      }
+    }
+ 
+    // Resolve the icons behavior with event delegation
+    $( "ul.gallery > li" ).on( "click", function( event ) {
+      var $item = $( this ),
+        $target = $( event.target );
+ 
+      if ( $target.is( "a.ui-icon-plusthick" ) ) {
+        deleteImage( $item );
+      } else if ( $target.is( "a.ui-icon-zoomin" ) ) {
+        viewLargerImage( $target );
+      } else if ( $target.is( "a.ui-icon-refresh" ) ) {
+        recycleImage( $item );
+      }
+ 
+      return false;
+    });
+  } );
+  
+ 
+			
+			
+        
+ 
+
+
+</script>
+
+
+</head>
+
+<body>
+
+<!--header-->
+<header class="r22">
+
+	<div class="mymenu2">
+		<font style="float:left;">Phone : 01636- 222222 | Email : travelindia@gmail.com</font>
+    	<font style="float:right;"> 
+        <a href="travelling.html">Travel Information</a>  | <a href="contact.html">Contact</a> | <a id="nameLogin" href="login.html">login</a>
+        </font>
+    </div> 
+</header> 
+<!--logo-->
+<div class="r1">
+		<div class="logo">
+				<img src="images/Tails bend for homa page.jpg" class="logop"/>
+		</div>
+</div>
+<!--navigation-->
+<nav class="r2">
+
+	<div class="mymenu">
+			<ul>
+					<li><a href="index1.html">Home</a></li>
+					<li><a href ="flight booking.html">Book flight</a></li>
+					<li><a href="manage.html"><font style="color:black;text-decoration:underline;">Manage Your Trip</font></a></li>
+					<li><a href="special offer.html">Special Offers</a></li>
+					<li><a href="Gallery.html">Gallery</a></li>
+					<li><a href="baggage.html">Baggage</a></li>
+			</ul>
+	</div>
+</nav>
+<div class="container-login100">
+			<div class="login100-more" style="background-image: url('images/bg-01.jpg');"></div>
+			
+<div id="tabss">
+  <ul>
+    <li><a href="#tabs-1">Search For flight</a></li>
+    <li><a href="#tabs-2">Food selection</a></li>
+    <li><a href="#tabs-3">World clock</a></li>
+  </ul>
+  <!--search for flight-->
+  <div id="tabs-1">
+			  <fieldset>
+			 
+						<legend>Enter details to Search Booking:</legend>
+						<div>
+								<div>
+									<ul>
+											<label>Search By:</label>
+												
+												<li><span style="color:black">Fight number</span>
+												<input  type="radio" name="searchby" id="flightnumber" onclick="showHide()" value="flightnumber"></li>
+												<li><span style="color:black">Airport</span>
+												<input  type="radio" name="searchby" id="airport" onclick="showHide2()" value="airport"></li>
+											
+								   </ul>
+								</div>
+
+						  </div>
+			</fieldset>
+   
+  </div>
+  <!--select food-->
+  <div id="tabs-2">
+				<label>Enter your fligth no.</label>
+			<input type="text" required>&nbsp;&nbsp;<span style="color:red;">You can add only one iteam once.</span><br><br>
+  
+			<div class="ui-widget ui-helper-clearfix">
+			 
+			<ul id="gallery" class="gallery ui-helper-reset ui-helper-clearfix">
+			  <li class="ui-widget-content ui-corner-tr">
+				<h5 class="ui-widget-header">Aloo gobi</h5>
+				<img src="images/f1.jpg" alt="Aloo gobis" width="96" height="72">
+				<a href="images/f1.jpg" title="View larger image" class="ui-icon ui-icon-zoomin">View larger</a>
+				<a href="link/to/trash/script/when/we/have/js/off" title="Add to cart" class="ui-icon ui-icon-plusthick">Add to cart</a>
+			  </li>
+			  <li class="ui-widget-content ui-corner-tr">
+				<h5 class="ui-widget-header">Aloo tikki</h5>
+				<img src="images/f2.jpg" alt="Aloo tikki" width="96" height="72">
+				<a href="images/f2.jpg" title="View larger image" class="ui-icon ui-icon-zoomin">View larger</a>
+				<a href="link/to/trash/script/when/we/have/js/off" title="Add to cart" class="ui-icon ui-icon-plusthick">Add to cart</a>
+			  </li>
+			  <li class="ui-widget-content ui-corner-tr">
+				<h5 class="ui-widget-header">Aloo Mattar</h5>
+				<img src="images/f3.jpg" alt="Aloo Mattar" width="96" height="72">
+				<a href="images/f3.jpg" title="View larger image" class="ui-icon ui-icon-zoomin">View larger</a>
+				<a href="link/to/trash/script/when/we/have/js/off" title="Add to cart" class="ui-icon ui-icon-plusthick">Add to cart</a>
+			  </li>
+			  <li class="ui-widget-content ui-corner-tr">
+				<h5 class="ui-widget-header">Chicken Makhani</h5>
+				<img src="images/f4.jpg" alt="Chicken Makhani" width="96" height="72">
+				<a href="images/f4.jpg" title="View larger image" class="ui-icon ui-icon-zoomin">View larger</a>
+				<a href="link/to/trash/script/when/we/have/js/off" title="Add to cart" class="ui-icon ui-icon-plusthick">Add to cart</a>
+			  </li>
+			  <li class="ui-widget-content ui-corner-tr">
+				<h5 class="ui-widget-header">Chapati and Chapati Roll</h5>
+				<img src="images/f5.jpg" alt="Chapati and Chapati Roll" width="96" height="72">
+				<a href="images/f5.jpg" title="View larger image" class="ui-icon ui-icon-zoomin">View larger</a>
+				<a href="link/to/trash/script/when/we/have/js/off" title="Add to cart" class="ui-icon ui-icon-plusthick">Add to cart</a>
+			  </li>
+			  <li class="ui-widget-content ui-corner-tr">
+				<h5 class="ui-widget-header"> Southern Poha</h5>
+				<img src="images/f6.jpg" alt="Poha" width="96" height="72">
+				<a href="images/f6.jpg" title="View larger image" class="ui-icon ui-icon-zoomin">View larger</a>
+				<a href="link/to/trash/script/when/we/have/js/off" title="Add to cart" class="ui-icon ui-icon-plusthick">Add to cart</a>
+			  </li>
+			  <li class="ui-widget-content ui-corner-tr">
+				<h5 class="ui-widget-header"> Halwa</h5>
+				<img src="images/f7.jpg" alt="Carrot halwa" width="96" height="72">
+				<a href="images/f7.jpg" title="View larger image" class="ui-icon ui-icon-zoomin">View larger</a>
+				<a href="link/to/trash/script/when/we/have/js/off" title="Add to cart" class="ui-icon ui-icon-plusthick">Add to cart</a>
+			  </li>
+			  <li class="ui-widget-content ui-corner-tr">
+				<h5 class="ui-widget-header">Jalebi</h5>
+				<img src="images/f8.jpg" alt="Jalebi" width="96" height="72">
+				<a href="images/f8.jpg" title="View larger image" class="ui-icon ui-icon-zoomin">View larger</a>
+				<a href="link/to/trash/script/when/we/have/js/off" title="Add to cart" class="ui-icon ui-icon-plusthick">Add to cart</a>
+			  </li>
+			  <br><br><br><br><br><br><br><br><br><br>
+			   <li class="ui-widget-content ui-corner-tr">
+				<h5 class="ui-widget-header">High Tatras</h5>
+				<img src="images/f1.jpg" alt="The peaks of High Tatras" width="96" height="72">
+				<a href="images/f1.jpg" title="View larger image" class="ui-icon ui-icon-zoomin">View larger</a>
+				<a href="link/to/trash/script/when/we/have/js/off" title="Add to cart" class="ui-icon ui-icon-plusthick">Add to cart</a>
+			  </li>
+			  <li class="ui-widget-content ui-corner-tr">
+				<h5 class="ui-widget-header">Kheer</h5>
+				<img src="images/f2.jpg" alt="Kheer" width="96" height="72">
+				<a href="images/f2.jpg" title="View larger image" class="ui-icon ui-icon-zoomin">View larger</a>
+				<a href="link/to/trash/script/when/we/have/js/off" title="Add to cart" class="ui-icon ui-icon-plusthick">Add to cart</a>
+			  </li>
+			  <li class="ui-widget-content ui-corner-tr">
+				<h5 class="ui-widget-header">High Tatras 3</h5>
+				<img src="images/f3.jpg" alt="Planning the ascent" width="96" height="72">
+				<a href="images/f3.jpg" title="View larger image" class="ui-icon ui-icon-zoomin">View larger</a>
+				<a href="link/to/trash/script/when/we/have/js/off" title="Add to cart" class="ui-icon ui-icon-plusthick">Add to cart</a>
+			  </li>
+			  <li class="ui-widget-content ui-corner-tr">
+				<h5 class="ui-widget-header">Black Coffee</h5>
+				<img src="images/f10.jpg" alt="Black Coffee" width="96" height="72">
+				<a href="images/f10.jpg" title="View larger image" class="ui-icon ui-icon-zoomin">View larger</a>
+				<a href="link/to/trash/script/when/we/have/js/off" title="Add to cart" class="ui-icon ui-icon-plusthick">Add to cart</a>
+			  </li>
+			  
+			  <li class="ui-widget-content ui-corner-tr">
+				<h5 class="ui-widget-header">Champagne flute</h5>
+				<img src="images/f11.jpg" alt="Champagne flute" width="96" height="72">
+				<a href="images/f11.jpg" title="View larger image" class="ui-icon ui-icon-zoomin">View larger</a>
+				<a href="link/to/trash/script/when/we/have/js/off" title="Add to cart" class="ui-icon ui-icon-plusthick">Add to cart</a>
+			  </li>
+			  <li class="ui-widget-content ui-corner-tr">
+				<h5 class="ui-widget-header">Orange juice</h5>
+				<img src="images/f12.jpg" alt="Orange juice" width="96" height="72">
+				<a href="images/f12.jpg" title="View larger image" class="ui-icon ui-icon-zoomin">View larger</a>
+				<a href="link/to/trash/script/when/we/have/js/off" title="Add to cart" class="ui-icon ui-icon-plusthick">Add to cart</a>
+			  </li>
+			  <li class="ui-widget-content ui-corner-tr">
+				<h5 class="ui-widget-header">Cheese crackers </h5>
+				<img src="images/f13.jpg" alt="Cheese crackers " width="96" height="72">
+				<a href="images/f13.jpg" title="View larger image" class="ui-icon ui-icon-zoomin">View larger</a>
+				<a href="link/to/trash/script/when/we/have/js/off" title="Add to cart" class="ui-icon ui-icon-plusthick">Add to cart</a>
+			  </li>
+			  <li class="ui-widget-content ui-corner-tr">
+				<h5 class="ui-widget-header">Candy bar</h5>
+				<img src="images/f14.jpg" alt="Candy bar" width="96" height="72">
+				<a href="images/f13.jpg" title="View larger image" class="ui-icon ui-icon-zoomin">View larger</a>
+				<a href="link/to/trash/script/when/we/have/js/off" title="Add to cart" class="ui-icon ui-icon-plusthick">Add to cart</a>
+			  </li>
+			</ul>
+			
+			 
+			<div id="trash" class="ui-widget-content ui-state-default">
+			  <h4 class="ui-widget-header"><span class="ui-icon ui-icon-arrowreturnthick-1-s"></span> Add your food here</h4>
+			</div>
+			 
+			</div>
+	<p>
+	`	&nbsp;&nbsp;<input type="button" value="Subbmit"/>
+	</p>	
+    
+  </div>
+  <!--ge timimg for differnt regions-->
+  <div id="tabs-3">
+       <div class="centerdiv">
+				   <div id="clock_canada"></div>
+				   <div id="clock_hou"></div>
+					<div id="clock_india"></div>
+					<div id="clock_korea"></div>
+					<div id="clock_uk"></div>
+					<div id="clock_tokyo"></div>
+		</div>
+  </div>
+</div>
+
+</div>
+<!--dialog to search for flight by flight number-->
+<div id="dialog" title="Search by Flight number:">
+
+		<label for="fightnum">Flight number</label>
+		<input id="fightnum" type="text">
+		 Departure<input  type="radio" name="searchby"  value="diapture" checked><br>
+		 Return
+		 <input  type="radio" name="searchby"   value="return" ><br>
+		<label for="date">Date:</label><input class="design" type="date" id="date" required> 
+	
+</div>
+<!--search for flight by airport name-->
+<div id="dialog2" title="Search by Airport name:">
+			<select name="airport" class="selectfield" title="citySelectLabelId" id="airport"><option value="">--- Select an Airport ---</option><option value="Airport.ABZ">Aberdeen,Aberdeen International Airport,ABZ,United Kingdom</option><option value="Airport.AUH">Abu Dhabi,Abu Dhabi International Airport,AUH,United Arab Emirates</option><option value="Airport.ACC">Accra,Kotoka International Airport,ACC,Ghana</option><option value="Airport.ADA">Adana,Adana Airport,ADA,Turkey</option><option value="Airport.ADD">Addis Ababa,Addis Ababa Airport,ADD,Ethiopia</option><option value="Airport.IXA">Agartala,Singerbhil Airport,IXA,India</option><option value="Airport.AGX">Agatti,Agatti Aerodrome,AGX,India</option><option value="Airport.AGR">Agra,Kheria Airport,AGR,India</option><option value="Airport.AMD">Ahmedabad,Sardar Vallabhbhai Patel International Airport,AMD,India</option><option value="Airport.AJL">Aizawl,Lengpui Airport,AJL,India</option><option value="Airport.IXD">Allahabad,Allahabad / Bamrauli Airport,IXD,India</option><option value="Airport.ALA">Almaty,Almaty International Airport,ALA,Kazakhstan</option><option value="Airport.ATQ">Amritsar,Sri Guru Ram Das Jee International Airport,ATQ,India</option><option value="Airport.AMS">Amsterdam,Amsterdam Airport Schipol,AMS,Netherlands</option><option value="Airport.ESB">Ankara,EsenboÄŸa Airport,ANK,Turkey</option><option value="Airport.AYT">Antalya,Antalya Airport,AYT,Turkey</option><option value="Airport.TNR">Antananarivo,Ivato International Airport,TNR,Madagascar</option><option value="Airport.ATZ">Assiut,Assiut Airport,ATZ,Egypt</option><option value="Airport.ASW">Aswan,Aswan International Airport,ASW,Egypt</option><option value="Airport.IXU">Aurangabad,Chikkalthana Airport,IXU,India</option><option value="Airport.IXB">Bagdogra,Bagdogra Airport,IXB,India</option><option value="Airport.BAH">Bahrain,Bahrain International Airport,BAH,Bahrain</option><option value="Airport.BKK">Bangkok,Suvarnabhumi International Airport,BKK,Thailand</option><option value="Airport.BWN">BANDAR SERI B,Brunei International Airport,BWN,Brunei</option><option value="Airport.IXG">Belagavi,Belgaum Airport,IXG,India</option><option value="Airport.BHD">Belfast,Belfast City Airport,BFS,United Kingdom</option><option value="Airport.BLR">Bengaluru,Kempegowda International Airport,BLR,India</option><option value="Airport.TXL">Berlin,Berlin - Tegel,BER,Germany</option><option value="Airport.BUP">Bhatinda,Bhatinda Airport,BUP,India</option><option value="Airport.BHU">Bhavnagar,Bhavnagar,BHU,India</option><option value="Airport.BHO">Bhopal,Raja Bhoj Airport,BHO,India</option><option value="Airport.BBI">Bhubaneswar,Biju Patnaik Airport,BBI,India</option><option value="Airport.BHJ">Bhuj,Bhuj Airport,BHJ,India</option><option value="Airport.BKB">Bikaner,Nal Airport,BKB,India</option><option value="Airport.BHX">Birmingham,Birmingham,BHX,United Kingdom</option><option value="Airport.BOG">Bogota,El Dorado International Airport,BOG,Colombia</option><option value="Airport.BRU">Brussels,Brussels Airport,BRU,Belgium</option><option value="Airport.CAI">Cairo,Cairo International Airport,CAI,Egypt</option><option value="Airport.YYC">Calgary,Calgary International Airport,YYC,Canada</option><option value="Airport.CPT">Cape Town,Cape Town International Airport,CPT,South Africa</option><option value="Airport.IXC">Chandigarh,Chandigarh Airport,IXC,India</option><option value="Airport.MAA">Chennai,Chennai International Airport,MAA,India</option><option value="Airport.ORD">Chicago,Chicago O'Hare International Airport,CHI,United States</option><option value="Airport.CJB">Coimbatore,Peelamedu Airport,CJB,India</option><option value="Airport.CMB">Colombo,Bandaranaike International Airport,CMB,Sri Lanka</option><option value="Airport.CPH">Copenhagen,Copenhagen Airport, Kastrup,CPH,Denmark</option><option value="Airport.DMM">Dammam,King Fahd International Airport,DMM,Saudi Arabia</option><option value="Airport.DAR">Dar-Es-Salaam,Julius Nyerere International Airport,DAR,Tanzania</option><option value="Airport.DIU">DIU,DIU Airport,DIU,India</option><option value="Airport.DED">Dehra Dun,Jolly Grant Airport,DED,India</option><option value="Airport.DEL">Delhi,Indira Gandhi International Airport,DEL,India</option><option value="Airport.DEN">Denver,Denver International Airport,DEN,United States</option><option value="Airport.DTW">Detroit,Detroit Metropolitan Wayne County,DTT,United States</option><option value="Airport.DAC">Dhaka,Shahjalal International Airport,DAC,Bangladesh</option><option value="Airport.DHM">Dharamshala,Gaggal Airport (Kangra),DHM,India</option><option value="Airport.DIB">Dibrugarh,Mohanbari Airport,DIB,India</option><option value="Airport.DMU">Dimapur,Dimapur Airport,DMU,India</option><option value="Airport.DOH">Doha,Hamad International Airport,DOH,Qatar</option><option value="Airport.DXB">Dubai,Dubai International Airport,DXB,United Arab Emirates</option><option value="Airport.DBV">Dubrovnik,Dubrovnik Airport,DBV,Croatia</option><option value="Airport.DUR">Durban,King Shaka International Airport,DUR,South Africa</option><option value="Airport.RDP">Durgapur,Kazi Nazrul Islam Airport,RDP,India</option><option value="Airport.DUS">Dusseldorf,Dusseldorf International Airport,DUS,Germany</option><option value="Airport.EDI">Edinburgh,Edinburgh,EDI,United Kingdom</option><option value="Airport.EBB">Entebbe,Entebbe International Airport,EBB,Uganda</option><option value="Airport.FRA">Frankfurt,Frankfurt/Main International Airport,FRA,Germany</option><option value="Airport.GBE">Gaborone,Sir Seretse Khama International Airport,GBE,Botswana</option><option value="Airport.GAY">Gaya,Bodhgaya Airport,GAY,India</option><option value="Airport.GLA">Glasgow,Glasgow,GLA,United Kingdom</option><option value="Airport.GOI">Goa,Dabolim Airport,GOI,India</option><option value="Airport.GOP">Gorakhpur,Gorakhpur Airport,GOP,India</option><option value="Airport.GBI">Gulbarga,Kalaburagi Airport,GBI,India</option><option value="Airport.GAU">Guwahati,Lokpriya Gopinath Bordoloi International Airport,GAU,India</option><option value="Airport.GWL">Gwalior,Rajmata Vijayaraje Scindia Civil Aviation Terminal,GWL,India</option><option value="Airport.HRE">Harare,Harare International Airport,HRE,Zimbabwe</option><option value="Airport.HKG">Hong Kong,Hong Kong International Airport,HKG,Hong Kong SAR China</option><option value="Airport.HBX">Hubli,Hubli Airport,HBX,India</option><option value="Airport.HRG">Hurghada,Hurghada International Airport,HRG,Egypt</option><option value="Airport.HYD">Hyderabad,Rajiv Gandhi International Airport, Shamshabad Airport,HYD,India</option><option value="Airport.IMF">Imphal,Tulihal Airport,IMF,India</option><option value="Airport.IDR">Indore,Devi Ahilyabai Holkar Airport,IDR,India</option><option value="Airport.IST">Istanbul,Ataturk International Airport,IST,Turkey</option><option value="Airport.ADB">Izmir,Adnan Menderes Airport,IZM,Turkey</option><option value="Airport.JLR">Jabalpur,Doomna Airport,JLR,India</option><option value="Airport.JAF">Jaffna,Jaffna International Airport,JAF,Sri Lanka</option><option value="Airport.JAI">Jaipur,Sanganer Airport,JAI,India</option><option value="Airport.CGK">Jakarta,Soekarnoâ€“Hatta International Airport,JKT,Indonesia</option><option value="Airport.IXJ">Jammu,Satwari Airport,IXJ,India</option><option value="Airport.JGA">Jamnagar,Govardhanpur Airport,JGA,India</option><option value="Airport.JED">Jeddah,King Abdul Aziz International Airport,JED,Saudi Arabia</option><option value="Airport.JRG">Jharsuguda,Veer Surendra Sai Airport,JRG,India</option><option value="Airport.JDH">Jodhpur,Jodhpur Airport,JDH,India</option><option value="Airport.JNB">Johannesburg,O.R. Tambo International Airport,JNB,South Africa</option><option value="Airport.JRH">Jorhat,Rowriah Airport,JRH,India</option><option value="Airport.KBL">Kabul,Khwaja Rawash Airport,KBL,Afghanistan</option><option value="Airport.IXY">Kandla,Kandla Airport,IXY,India</option><option value="Airport.CNN">Kannur,Kannur International Airport,CNN,India</option><option value="Airport.KNU">Kanpur,Chakeri Airport,KNU,India</option><option value="Airport.KTM">Kathmandu,Tribhuvan International Airport,KTM,Nepal</option><option value="Airport.HJR">Khajuraho,Khajuraho Airport,HJR,India</option><option value="Airport.KBP">Kiev,Kyiv Boryspil International Airport,IEV,Ukraine</option><option value="Airport.KGL">Kigali,Kigali International Airport,KGL,Rwanda</option><option value="Airport.JRO">Kilimanjaro,Kilimanjaro International Airport,JRO,Tanzania</option><option value="Airport.COK">Kochi,Cochin International Airport,COK,India</option><option value="Airport.KLH">Kolhapur,Kohapur Airport,KLH,India</option><option value="Airport.CCU">Kolkata,Netaji Subhash Chandra Bose International Airport,CCU,India</option><option value="Airport.CCJ">Kozhikode,Calicut International Airport,CCJ,India</option><option value="Airport.KUL">Kuala Lumpur,Kuala Lumpur International Airport,KUL,Malaysia</option><option value="Airport.KUU">Kullu,Bhuntar Airport,KUU,India</option><option value="Airport.KWI">Kuwait,Kuwait International Airport,KWI,Kuwait</option><option value="Airport.IXL">Leh,Leh Kushok Bakula Rimpochee Airport,IXL,India</option><option value="Airport.IXI">Lilabari,Lilabari Airport,IXI,India</option><option value="Airport.LIS">Lisbon,Humberto Delgado Airport,LIS,Portugal</option><option value="Airport.LHR">London,London Heathrow International Airport,LON,United Kingdom</option><option value="Airport.STN">London,London Stansted International Airport,LON,United Kingdom</option><option value="Airport.LAX">Los Angeles,Los Angeles International Airport,LAX,United States</option><option value="Airport.LKO">Lucknow,Chaudhary Charan Singh International Airport,LKO,India</option><option value="Airport.LUH">Ludhiana,Sahnewal Airport,LUH,India</option><option value="Airport.LXR">Luxor,Luxor International Airport,LXR,Egypt</option><option value="Airport.MAD">Madrid,Madrid Barajas Airport,MAD,Spain</option><option value="Airport.IXM">Madurai,Madurai Airport,IXM,India</option><option value="Airport.SEZ">Mahe Island,Seychelles International Airport,SEZ,Seychelles Islands</option><option value="Airport.MLE">Male,Male International Airport,MLE,Maldives</option><option value="Airport.IXE">Mangalore,Bajpe Airport,IXE,India</option><option value="Airport.MRU">Mauritius,Sir Seewoosagur Ramgoolam International Airport,MRU,Mauritius</option><option value="Airport.MEL">Melbourne,Melbourne Airport,MEL,Australia</option><option value="Airport.MXP">Milan,Milan - Malpensa,MIL,Italy</option><option value="Airport.MBA">Mombasa,Moi International Airport,MBA,Kenya</option><option value="Airport.YUL">Montreal,MontrÃ©al-Pierre Elliott Trudeau International Airport,YMQ,Canada</option><option value="Airport.DLM">MuÄŸla Dalaman,Dalaman Airport,DLM,Turkey</option><option value="Airport.BOM">Mumbai,Chhatrapati Shivaji International Airport,BOM,India</option><option value="Airport.MUC">Munich,Munich Franz Josef Strauss Airport,MUC,Germany</option><option value="Airport.MCT">Muscat,Muscat International Airport,MCT,Oman</option><option value="Airport.MYQ">Mysore,Mysore Airport,MYQ,India</option><option value="Airport.NAN">Nadi,Nadi International Airport,NAN,Republic of Fiji</option><option value="Airport.NAG">Nagpur,Dr. Babasaheb Ambedkar International Airport (Sonegaon Airport),NAG,India</option><option value="Airport.NBO">Nairobi,Jomo Kenyatta International Airport,NBO,Kenya</option><option value="Airport.NDC">Nanded,Shri Guru Gobind Singh Ji Airport,NDC,India</option><option value="Airport.ISK">Nasik,Ozar Airport,ISK,India</option><option value="Airport.EWR">New York,Newark Liberty International Airport,NYC,United States</option><option value="Airport.JFK">New York,New York John F. Kennedy International Airport,NYC,United States</option><option value="Airport.ODS">Odesa,Odessa International Airport,ODS,Ukraine</option><option value="Airport.KIX">Osaka,Kansai International Airport,OSA,Japan</option><option value="Airport.OSL">Oslo,Oslo Airport, Gardemoen,OSL,Norway</option><option value="Airport.YOW">Ottawa,Ottawa International Airport,YOW,Canada</option><option value="Airport.PGH">Pantnagar,Pantnagar Airport,PGH,India</option><option value="Airport.CDG">Paris,Paris-Charles de Gaulle Airport,PAR,France</option><option value="Airport.IXT">Pasighat,Pasighat Airport,IXT,India</option><option value="Airport.IXP">Pathankot,Pathankot Airport,IXP,India</option><option value="Airport.PAT">Patna,Lok Nayak Jayaprakash Narain Airport,PAT,India</option><option value="Airport.IXZ">Port Blair,Veer Savarkar International Airport,IXZ,India</option><option value="Airport.OPO">Porto,Francisco SÃ¡ Carneiro,OPO,Portugal</option><option value="Airport.PNY">Puducherry,Puducherry Airport,PNY,India</option><option value="Airport.PNQ">Pune,Lohegaon Airport,PNQ,India</option><option value="Airport.RPR">Raipur,Mana Airport,RPR,India</option><option value="Airport.RAJ">Rajkot,Rajkot Airport,RAJ,India</option><option value="Airport.IXR">Ranchi,Birsa Munda Airport,IXR,India</option><option value="Airport.RUH">Riyadh,King Khalid International Airport,RUH,Saudi Arabia</option><option value="Airport.FCO">Rome,Rome - Fiumicino,ROM,Italy</option><option value="Airport.RUN">Saint-Denis,Roland Garros Airport,RUN,Reunion</option><option value="Airport.ZSE">Saint-Pierre,Pierrefonds Airport,ZSE,Reunion</option><option value="Airport.SFO">San Francisco,San Francisco International Airport,SFO,United States</option><option value="Airport.ICN">Seoul,Incheon International Airport,SEL,South Korea</option><option value="Airport.PVG">Shanghai,Pudong International Airport,SHA,China</option><option value="Airport.SHJ">Sharjah,Sharjah International Airport,SHJ,United Arab Emirates</option><option value="Airport.SSH">Sharm El Sheikh,Sharm El Sheikh International Airport,SSH,Egypt</option><option value="Airport.SHL">Shillong,Barapani Airport,SHL,India</option><option value="Airport.SLV">Shimla,Shimla Airport,SLV,India</option><option value="Airport.SAG">Shirdi,Shirdi Airport,SAG,India</option><option value="Airport.IXS">Silchar,Kumbhirgram Airport,IXS,India</option><option value="Airport.SIN">Singapore,Singapore Changi International Airport,SIN,Singapore</option><option value="Airport.HMB">Sohag,Sohag International Airport,HMB,Egypt</option><option value="Airport.SPU">Split,Split Airport,SPU,Croatia</option><option value="Airport.SXR">Srinagar,Sheikh ul Alam Airport,SXR,India</option><option value="Airport.ARN">Stockholm,Stockholm-Arlanda Airport,STO,Sweden</option><option value="Airport.STR">Stuttgart,Stuttgart Airport,STR,Germany</option><option value="Airport.STV">Surat,Surat Airport,STV,India</option><option value="Airport.SYD">Sydney,Kingsford Smith Airport,SYD,Australia</option><option value="Airport.TPE">Taipei,Taoyuan International Airport,TPE,Chinese Taipei</option><option value="Airport.TLV">Tel Aviv,Ben Gurion International Airport,TLV,Israel</option><option value="Airport.TEZ">Tezpur,Tezpur Airport,TEZ,India</option><option value="Airport.TRV">Thiruvananthapuram,Thiruvananthapuram International Airport,TRV,India</option><option value="Airport.TRZ">Tiruchirapalli,Tiruchirapalli Airport,TRZ,India</option><option value="Airport.TIR">Tirupati,Tirupati Airport,TIR,India</option><option value="Airport.NRT">Tokyo,Tokyo Narita International Airport,TYO,Japan</option><option value="Airport.YYZ">Toronto,Pearson International Airport,YTO,Canada</option><option value="Airport.UDR">Udaipur,Maharana Pratap Airport,UDR,India</option><option value="Airport.BDQ">Vadodara,Sir Sayajirao Gaekwad Airport,BDQ,India</option><option value="Airport.YVR">Vancouver,Vancouver International Airport,YVR,Canada</option><option value="Airport.VNS">Varanasi,Lal Bhadur Shastri Airport,VNS,India</option><option value="Airport.VIE">Vienna,Vienna International Airport,VIE,Austria</option><option value="Airport.VGA">Vijayawada,Vijayawada,VGA,India</option><option value="Airport.VTZ">Visakhapatnam,Visakhapatnam Airport,VTZ,India</option><option value="Airport.WAW">Warsaw,Warsaw-Chopin Airport,WAW,Poland</option><option value="Airport.IAD">Washington,Washington Dulles International Airport,WAS,United States</option><option value="Airport.RGN">Yangon-Rangoon,Yangon International Airport,RGN,Burma</option><option value="Airport.ZAG">Zagreb,Zagreb,ZAG,Croatia</option><option value="Airport.ZNZ">Zanzibar,Abeid Amani Karume International Airport,ZNZ,Tanzania</option><option value="Airport.ZRH">Zurich,Zurich Airport,ZRH,Switzerland</option></select><br>
+			<label for="date">Date:</label><input class="design" type="date" id="date" required>
+
+</div>
+<!---footer link pannel-->
+<div class="r7">
+			<div class="centerdiv2">
+						<div class="list">
+								<ul>
+										<a href=""><li>About AirIndia</li></a>
+										<a href=""><li>Engineering Services</li></a>
+										<a href=""><li>Air India Airport Services</li></a>
+										<a href=""><li>Conditions of Carriage</li></a>
+										<a href=""><li>US DOT Regulations</li></a>
+								</ul>
+						</div>
+						<div class="list" >
+								<ul>
+										<a href=""><li>Media Center</li></a>
+										<a href=""><li>Citizens Charters</li></a>
+										<a href=""><li>Download</li></a>
+										<a href="FAQs.html"><li>FAQs</li></a>
+										<a href=""><li>Canada Regulations</li></a>
+								</ul>
+						</div>
+						<div class="list" >
+								<ul>
+										<a href="Information.html"><li>Right to Information</li></a>
+										<a href="Vigilance.html"><li>Vigilance</li></a>
+										<a href=""><li>Tenders</li></a>
+										<a href="Feedback.html"><li>Feedback</li></a>
+								</ul>
+						</div>
+						<div class="list">
+								<ul>
+										<a href=""><li>Site Map</li></a>
+										<a href=""><li>Careers</li></a>
+										<a href=""><li>Travel Agents</li></a>
+										<a href=""><li>Corporate Environment Policy</li></a>
+
+
+
+								</ul>
+						</div>
+			</div>
+</div>
+<!--footer-->
+<footer class="r8">
+		<div class="end"><br/>
+					Copyright&copy;
+					<font style="float:right;">A Creation by <i> Mandeep singh</i></font>
+					<br><img style="float:right;" class="footerlogo"src="images/f1.png">
+					<img style="float:right;" class="footerlogo" src="images/f2.png">
+					<img style="float:right;" class="footerlogo" src="images/z3.jpg">
+		</div>
+</footer>
+</body>
+</html>
+

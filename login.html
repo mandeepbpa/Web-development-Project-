@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Air India|LogIn
+</title>
+<link rel="shortcut icon" type="image/png" href="images/toplogo.png">
+<script src="js/jquery-3.4.1.js"></script>
+<script src="js/script.js"></script>
+<link rel="stylesheet" type="text/css" href="css/airline.css" />
+<link rel="stylesheet" type="text/css" href="css/main.css">
+<script>
+		//validation
+	    function ValidatePage(){
+				   var email = document.getElementById("loginUserName").value;
+				   console.log(email);
+				    function ValidateEmail(email) 
+					{
+					 if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email))
+					  {
+						return (true)                                        
+					  }
+						return (false)
+					}
+				      if(ValidateEmail(email)==false||ValidateEmail(email)=="")
+					  {
+					       document.getElementById("loginUserName").placeholder="Please Enter a vaild email.";
+					      $("#loginUserName").css("border","3px solid red");
+					  }
+					  else
+					  {
+						document.getElementById("loginUserName").placeholder="Username";
+						$("#loginUserName").css("border","3px  green");
+						 var password =document.getElementById("loginPassword").value;
+					 if(password=="")
+					  {
+					       document.getElementById("loginPassword").placeholder="Please Enter Password."
+						    $("#loginPassword").css("border","3px solid red");
+					  }
+					  else
+					  {		
+					  document.getElementById("loginPassword").placeholder="Password";
+							$("#loginPassword").css("border","3px  green");
+						 document.getElementById("nameLogin").firstChild.nodeValue = email;
+						 window.location.reload(true);
+						 Alert("Welcome\nYou are signed in ")
+						 }
+					  }
+				   
+					
+		}
+		
+		
+</script>
+</head>
+
+<body>
+<!--header-->
+<header class="r22">
+
+	<div class="mymenu2">
+		<font style="float:left;">Phone : 01636- 222222 | Email : travelindia@gmail.com</font>
+    	<font style="float:right;"> 
+        <a href="travelling.html">Travel Information</a>  | <a href="contact.html">Contact</a> | <a id="nameLogin" href="login.html">login</a>
+        </font>
+    </div> 
+</header> 
+<!--logo-->
+<div class="r1">
+		<div class="logo">
+				<img src="images/Tails bend for homa page.jpg" class="logop"/>
+		</div>
+</div>
+<!--navigation-->
+<nav class="r2">
+
+	<div class="mymenu">
+			<ul>
+					<li><a href="index1.html"><font style="color:black;text-decoration:underline;">Home</font></a></li>
+					<li><a href ="flight booking.html">Book flight</a></li>
+					<li><a href="manage.html">Manage Your Trip</a></li>
+					<li><a href="special offer.html">Special Offers</a></li>
+					<li><a href="Gallery.html">Gallery</a></li>
+					<li><a href="baggage.html">Baggage</a></li>
+			</ul>
+	</div>
+</nav>
+<!--login page body-->
+<div class="limiter">
+		<div class="container-login" style="background-image: url('images/loginbck.jpg');">
+			<div class="wrap-login">
+				<form class="login-form validate-form">
+					<div class="login-form-avatar">
+						<img src="images/loginlogo.png" alt="AVATAR">
+					</div>
+
+					<span class="login-form-title">
+						Air India 
+					</span>
+					<br><br><br>
+					<div class="wrap-input">
+						<input class="input" id ="loginUserName" type="text" name="username" placeholder="Username">
+						
+						
+					</div>
+					<br><br><br>
+					<div class="wrap-input">
+						<input class="input" type="password" id ="loginPassword" name="pass" placeholder="Password">
+						
+					</div>
+					<br><br><br>
+					<div class="container-login-form-btn">
+						<button id="loginButton" type="submit" class="login-form-btn" onclick="ValidatePage(); return false">
+							Login
+						</button>
+					</div>
+					<br><br><br><br><br><br><br>
+					<div>
+						<a >
+							Forgot Username / Password?
+						</a>
+					</div>
+					
+					<div >
+						<a href="signup.html">
+							Create new account
+													
+						</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+</body>
+</html>

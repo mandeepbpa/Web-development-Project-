@@ -1,0 +1,403 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>jQuery Mobile: Theme Download</title>
+	<link rel="stylesheet" href="themes/AirIndia.min.css" />
+	<link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+	<link rel="stylesheet" href="css/jquery.mobile.structure-1.4.5.min.css" />
+	<script src="js/jquerymobile.js"></script>
+	<script src="js/jquery.mobile-1.4.5.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/mobilemain.css">
+	<link rel="stylesheet" type="text/css" href="css/mobilesignup.css">
+	<script src="js/jquery.validate.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/screen.css" /> 
+	<script>
+	//creating first page swiping panaels fuctions
+   $( document ).on( "pagecreate", "#login", function() {
+    $( document ).on( "swipeleft swiperight", "#login",function( e ) {
+        // We check if there is no open panel on the page because otherwise
+        // a swipe to close the left panel would also open the right panel (and v.v.).
+        // We do this by checking the data that the framework stores on the page element (panel: open).
+        if ( $( ".ui-page-active" ).jqmData( "panel" ) !== "open" ) {
+            if ( e.type === "swipeleft" ) {
+                $( "#right-panel" ).panel( "open" );
+            } else if ( e.type === "swiperight" ) {
+                $( "#left-panel" ).panel( "open" );
+            }
+        }
+    });
+});
+		//creating secong page(id=signup)
+$( document ).on( "pagecreate", "#signup", function() {
+    $( document ).on( "swipeleft swiperight", "#signup",function( e ) {
+        // We check if there is no open panel on the page because otherwise
+        // a swipe to close the left panel would also open the right panel (and v.v.).
+        // We do this by checking the data that the framework stores on the page element (panel: open).
+        if ( $( ".ui-page-active" ).jqmData( "panel" ) !== "open" ) {
+            if ( e.type === "swipeleft" ) {
+                $( "#right-panel1" ).panel( "open" );
+            } else if ( e.type === "swiperight" ) {
+                $( "#left-panel1" ).panel( "open" );
+            }
+        }
+    });
+});
+ function ValidatePage(){
+				   var email = document.getElementById("loginUserName").value;
+				   console.log(email);
+				    function ValidateEmail(email) 
+					{
+					 if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email))
+					  {
+						return (true)                                        
+					  }
+						return (false)
+					}
+				      if(ValidateEmail(email)==false||ValidateEmail(email)=="")
+					  {
+					       document.getElementById("loginUserName").placeholder="Please Enter a vaild email.";
+					      $("#loginUserName").css("border","3px solid red");
+					  }
+					  else
+					  {
+						document.getElementById("loginUserName").placeholder="Username";
+						$("#loginUserName").css("border","3px  green");
+						 var password =document.getElementById("loginPassword").value;
+					 if(password=="")
+					  {
+					       document.getElementById("loginPassword").placeholder="Please Enter Password."
+						    $("#loginPassword").css("border","3px solid red");
+					  }
+					  else
+					  {		
+					  document.getElementById("loginPassword").placeholder="Password";
+							$("#loginPassword").css("border","3px  green");
+						 document.getElementById("nameLogin").firstChild.nodeValue = email;
+						 window.location.reload(true);
+						 Alert("Welcome\nYou are signed in ")
+						 }
+					  }
+				   
+					
+		}
+
+
+
+$().ready(function() {
+
+		// validate signup form on keyup and submit
+		$("#feedbackform").validate({
+			rules: {
+				fullname: "required",
+				username: "required",
+				password: {
+					required: true,
+					minlength: 5
+				},
+				confirm_password: {
+					required: true,
+					minlength: 5,
+					equalTo: "#password"
+				},
+				email: {
+					required: true,
+					email: true
+				},
+				agree: "required"
+				
+			},
+			messages: {
+				fullname: "Please enter your fullname",
+				username: "Please enter a username",
+				password: {
+					required: "Please provide a password",
+					minlength: "Your password must be at least 5 characters long"
+				},
+				confirm_password: {
+					required: "Please provide a password",
+					minlength: "Your password must be at least 5 characters long",
+					equalTo: "Please enter the same password as above"
+				},
+				email: "Please enter a valid email address",
+				agree: "Please accept our policy"
+			}
+		});
+	});
+		
+	</script>
+</head>
+<body>
+	<div data-role="page" id="login" data-url="login">
+    <div data-role="header" data-theme="b">
+		<a href="#left-panel" style="margin-top:2vw;" class="jqm-navmenu-link ui-btn ui-btn-icon-notext ui-corner-all ui-icon-bars ui-nodisc-icon ui-alt-icon ui-btn-left">Menu</a>
+        <a href="#right-panel" style="margin-top:2vw;" class="jqm-search-link ui-btn ui-btn-icon-notext ui-corner-all ui-icon-search ui-nodisc-icon ui-alt-icon ui-btn-right">Search</a>
+        <img  style="height:20vw; width:100%;;"src="images/Tails bend for homa page.jpg"/>
+		<a href="index1.html" class="jqm-search-link ui-btn ui-btn-icon-notext ui-corner-all ui-icon-home ui-nodisc-icon ui-alt-icon ui-btn-right" style="height:40px;width:40px;margin-top:18vw; value="Icon only"></a>
+    </div><!-- /header -->
+    <div role="main" class="ui-content">
+        <div class="limiter">
+		<div class="container-login" style="background-image: url('images/loginbck.jpg');">
+			<div class="wrap-login">
+				<form class="login-form validate-form" data-ajax="false">
+					<div class="login-form-avatar">
+						<img src="images/loginlogo.png" alt="AVATAR">
+						
+					</div>
+
+					<span class="login-form-title">
+						Air India 
+					</span>
+					<br><br><br>
+					<div class="wrap-input">
+						<input class="input" id ="loginUserName" type="text" name="username" placeholder="Username">
+						
+						
+					</div>
+					<br><br><br>
+					<div class="wrap-input">
+						<input class="input" type="password" id ="loginPassword" name="pass" placeholder="Password">
+						
+					</div>
+					<br><br><br>
+					<div class="container-login-form-btn">
+						<button id="loginButton" type="submit" class="login-form-btn" onclick="ValidatePage(); return false">
+							Login
+						</button>
+					</div>
+					<br><br><br><br><br><br><br>
+					<div>
+						<a >
+							Forgot Username / Password?
+						</a>
+					</div>
+					<br><br>
+					<div >
+						<a href="signup.html">
+							Create new account
+													
+						</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<div data-role="footer" data-theme="a">
+  <div><br/>
+					Copyright&copy;
+					<font style="float:right;">A Creation by <i> Mandeep singh</i></font>
+					<br>
+					<br>
+		</div>
+</div>
+    <div data-role="panel" id="left-panel" data-theme="b">
+       <div data-role="header" data-theme="b">
+		<h1>Menu</h1>
+		</div>
+		<div role="main" class="ui-content">
+			<div>
+				<ul data-role="listview">
+			            <li data-icon="home"><a href="index1.html" data-transition="flow">Home</a></li>
+			            <li data-icon="user"><a href="#signup" data-transition="flow" >Signup</a></li>
+			            
+				</ul>
+			</div>
+		</div>
+    </div><!-- /panel -->
+    <div data-role="panel" id="right-panel" data-display="push" data-position="right" data-theme="b">
+        <div data-role="header" data-theme="b">
+		<h1>About Us..</h1>
+		</div>
+		<div role="main" class="ui-content">
+			<div>
+				<ul data-role="listview">
+			            <li data-role="collapsible" data-inset="false" data-iconpos="right">
+			              <h3>Our Contacts</h3>
+			              <ul data-role="listview">
+			                <li><a href="#">airindia@gmail.com</a></li>
+			                <li><a href="#">Airindiacanada@gmail.com</a></li>
+			                <li><a href="#">+1 416-821-7799</a></li>
+			                <li><a href="#">+91 98552-08933</a></li>
+			              </ul>
+			            </li><!-- /collapsible -->
+			            <li data-role="collapsible" data-inset="false" >
+							<h3>Our Services</h3>
+			              <h3></h3>
+			              <ul data-role="listview">
+			                <li><a href="#">Hotel Booking</a></li>
+			                <li><a href="#">Online check-in</a></li>
+			                <li><a href="#">Handicapte help services</a></li>
+			              </ul>
+			            </li><!-- /collapsible -->
+			            <li data-role="collapsible" data-inset="false" data-iconpos="right">
+			              <h3>About Air India</h3>
+			              <ul data-role="listview">
+			                <li><a href="#page3"> About me.</a></li>
+							</ul>
+              </ul>
+			</div>
+		</div>
+    </div><!-- /panel -->
+</div>
+<!-- /second page   -->
+<div data-role="page" id="signup">
+    <div data-role="header" data-theme="b">
+		<a href="#left-panel1" style="margin-top:2vw;" class="jqm-navmenu-link ui-btn ui-btn-icon-notext ui-corner-all ui-icon-bars ui-nodisc-icon ui-alt-icon ui-btn-left">Menu</a>
+        <a href="#right-panel1" style="margin-top:2vw;" class="jqm-search-link ui-btn ui-btn-icon-notext ui-corner-all ui-icon-search ui-nodisc-icon ui-alt-icon ui-btn-right">Search</a>
+        <img  style="height:20vw; width:100%;"src="images/Tails bend for homa page.jpg"/>
+		<a href="index1.html" class="jqm-search-link ui-btn ui-btn-icon-notext ui-corner-all ui-icon-home ui-nodisc-icon ui-alt-icon ui-btn-right" style="height:40px;width:40px;margin-top:18vw; value="Icon only"></a>
+    </div><!-- /header -->
+    <div role="main" class="ui-content">
+        <div class="limiter">
+		<div class="container-login100">
+
+			<div class="wrap-login100 p-l-50 p-r-50 p-t-72 p-b-50">
+				<form id="feedbackform" class="login100-form " data-ajax="false">
+					<span class="login100-form-title p-b-59">
+						Sign Up
+					</span>
+
+					<div class="wrap-input100 ">
+						<span class="label-input100">Full Name</span>
+						<input class="input100"id="fullname" type="text" name="name" placeholder="Name..." required>
+					</div>
+
+					<div class="wrap-input100">
+						<span class="label-input100">Email</span>
+						<input class="input100" id ="email"type="email" name="email" placeholder="Email addess..." required>
+						
+					</div>
+
+					<div class="wrap-input100 ">
+						<span class="label-input100">Username</span>
+						<input class="input100" id="username" type="text" name="username" placeholder="Username..." required>
+						
+					</div>
+
+					<div class="wrap-input100">
+						<span class="label-input100">Password</span>
+						<input class="input100" id ="password"type="text" name="pass" placeholder="*************" required>
+						
+					</div>
+
+					<div class="wrap-input100 >
+						<span class="label-input100">Repeat Password</span>
+						<input class="input100" id="confirm_password" type="text" name="repeat-pass" placeholder="*************" required>
+						
+					</div>
+
+					<div class="flex-m w-full p-b-33">
+						<div>
+							<p>
+								<label for="agree">Please agree to our complaint policy</label>
+								<input type="checkbox" title="agree"class="checkbox" id="agree" name="agree">
+							</p>
+						</div>
+
+						
+					</div>
+
+					<div class="container-login100-form-btn">
+						<div class="wrap-login100-form-btn">
+							<div class="login100-form-bgbtn"></div>
+							<button class="login100-form-btn" type="submit" value= "Sign up">
+								Sign Up
+							</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<div data-role="footer" data-theme="a">
+  <div><br/>
+					Copyright&copy;
+					<font style="float:right;">A Creation by <i> Mandeep singh</i></font>
+					<br>
+					<br>
+		</div>
+</div>
+   <div data-role="panel" id="left-panel1" data-theme="b">
+       <div data-role="header" data-theme="b">
+		<h1>Menu</h1>
+		</div>
+		<div role="main" class="ui-content">
+			<div>
+				<ul data-role="listview">
+			            <li data-icon="home"><a href="index1.html" data-transition="flow">Home</a></li>
+			            <li data-icon="user"><a href="#login" data-transition="flow" >Log in</a></li>
+			            
+				</ul>
+			</div>
+		</div>
+    </div><!-- /panel -->
+    <div data-role="panel" id="right-panel1" data-display="push" data-position="right" data-theme="b">
+        <div data-role="panel" id="right-panel" data-display="push" data-position="right" data-theme="b">
+        <div data-role="header" data-theme="b">
+		<h1>About Us..</h1>
+		</div>
+		<div role="main" class="ui-content">
+			<div>
+				<ul data-role="listview">
+			            <li data-role="collapsible" data-inset="false" data-iconpos="right">
+			              <h3>Our Contacts</h3>
+			              <ul data-role="listview">
+			                <li><a href="#">airindia@gmail.com</a></li>
+			                <li><a href="#">Airindiacanada@gmail.com</a></li>
+			                <li><a href="#">+1 416-821-7799</a></li>
+			                <li><a href="#">+91 98552-08933</a></li>
+			              </ul>
+			            </li><!-- /collapsible -->
+			            <li data-role="collapsible" data-inset="false" >
+							<h3>Our Services</h3>
+			              <h3></h3>
+			              <ul data-role="listview">
+			                <li><a href="#">Hotel Booking</a></li>
+			                <li><a href="#">Online check-in</a></li>
+			                <li><a href="#">Handicapte help services</a></li>
+			              </ul>
+			            </li><!-- /collapsible -->
+			            <li data-role="collapsible" data-inset="false" data-iconpos="right">
+			              <h3>About Air India</h3>
+			              <ul data-role="listview">
+			                <li><a href="" data-rel="dialog">Air India is....</a></li>
+							</ul>
+              </ul>
+			</div>
+		</div>
+    </div><!-- /panel -->
+    </div><!-- /panel -->
+</div>
+<!--About me page-->
+<div data-role="page" id="page3">
+<div data-role="header" data-theme="b">
+        <img  style="height:20vw; width:100%;"src="images/Tails bend for homa page.jpg"/>
+		<a href="#login" class="jqm-search-link ui-btn ui-btn-icon-notext ui-corner-all ui-icon-home ui-nodisc-icon ui-alt-icon ui-btn-right" style="height:40px;width:40px;margin-top:18vw; value="Icon only"></a>
+    </div><!-- /header -->
+    <section class="ui-content" role="main">
+        <h3>About Creation team</h3>
+        <p>This Web site is designed by:
+        </p>
+        <section id="team" data-role="collapsibleset">       
+            <div data-role="collapsible">
+                <h3>Web Designer</h3>
+                <img src="images/mandeep.jpg"  height="auto" width="40%" alt="Agnes">
+                <h4>Mandeep Singh<br>Computer Programmer</h4>
+                <p>Working as <i>Warehouse Mercendize handler </i>
+                </p>
+                <a href="#"
+                   data-role="button"
+                   class="ui-bar">Contact me.</a>
+            </div>
+            <!-- the other content blocks go here -->
+        </section>
+    </section>
+</div>
+
+
+
+
+</body>
+</html>

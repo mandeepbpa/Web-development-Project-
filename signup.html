@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Air India|Signup</title>
+<link rel="shortcut icon" type="image/png" href="images/toplogo.png">
+<script src="js/jquery-3.4.1.js"></script>
+<script src="js/script.js"></script>
+<script src="js/jquery.validate.js"></script>
+<link rel="stylesheet" type="text/css" href="css/screen.css" /> 
+<link rel="stylesheet" type="text/css" href="css/airline.css" />
+<link rel="stylesheet" type="text/css" href="css/mainsignup.css">
+<style>
+form.cmxform label.error, label.error {
+	color: red;
+	text-decoration: none;
+}
+</style>
+<script>
+	$().ready(function() {
+
+		// validate signup form on keyup and submit
+		$("#feedbackform").validate({
+			rules: {
+				fullname: "required",
+				username: "required",
+				password: {
+					required: true,
+					minlength: 5
+				},
+				confirm_password: {
+					required: true,
+					minlength: 5,
+					equalTo: "#password"
+				},
+				email: {
+					required: true,
+					email: true
+				},
+				agree: "required"
+				
+			},
+			messages: {
+				fullname: "Please enter your fullname",
+				username: "Please enter a username",
+				password: {
+					required: "Please provide a password",
+					minlength: "Your password must be at least 5 characters long"
+				},
+				confirm_password: {
+					required: "Please provide a password",
+					minlength: "Your password must be at least 5 characters long",
+					equalTo: "Please enter the same password as above"
+				},
+				email: "Please enter a valid email address",
+				agree: "Please accept our policy"
+			}
+		});
+	});
+		
+		
+</script>
+</head>
+
+<body>
+<!--header-->
+<header class="r22">
+
+	<div class="mymenu2">
+		<font style="float:left;">Phone : 01636- 222222 | Email : travelindia@gmail.com</font>
+    	<font style="float:right;"> 
+        <a href="travelling.html">Travel Information</a>  | <a href="contact.html">Contact</a> | <a id="nameLogin" href="login.html">login</a>
+        </font>
+    </div> 
+</header> 
+<!--logo-->
+<div class="r1">
+		<div class="logo">
+				<img src="images/Tails bend for homa page.jpg" class="logop"/>
+		</div>
+</div>
+<!--navigation-->
+<nav class="r2">
+
+	<div class="mymenu">
+			<ul>
+					<li><a href="index1.html">Home</a></li>
+					<li><a href ="flight booking.html">Book flight</a></li>
+					<li><a href="manage.html">Manage Your Trip</a></li>
+					<li><a href="special offer.html">Special Offers</a></li>
+					<li><a href="Gallery.html">Gallery</a></li>
+					<li><a href="baggage.html">Baggage</a></li>
+			</ul>
+	</div>
+</nav>
+<div class="limiter">
+		<div class="container-login100">
+			<div class="login100-more" style="background-image: url('images/bg-01.jpg');"></div>
+
+			<div class="wrap-login100 p-l-50 p-r-50 p-t-72 p-b-50">
+				<form id="feedbackform" class="login100-form ">
+					<span class="login100-form-title p-b-59">
+						Sign Up
+					</span>
+
+					<div class="wrap-input100 ">
+						<span class="label-input100">Full Name</span>
+						<input class="input100"id="fullname" type="text" name="name" placeholder="Name..." required>
+					</div>
+
+					<div class="wrap-input100">
+						<span class="label-input100">Email</span>
+						<input class="input100" id ="email"type="email" name="email" placeholder="Email addess..." required>
+						
+					</div>
+
+					<div class="wrap-input100 ">
+						<span class="label-input100">Username</span>
+						<input class="input100" id="username" type="text" name="username" placeholder="Username..." required>
+						
+					</div>
+
+					<div class="wrap-input100">
+						<span class="label-input100">Password</span>
+						<input class="input100" id ="password"type="text" name="pass" placeholder="*************" required>
+						
+					</div>
+
+					<div class="wrap-input100 >
+						<span class="label-input100">Repeat Password</span>
+						<input class="input100" id="confirm_password" type="text" name="repeat-pass" placeholder="*************" required>
+						
+					</div>
+
+					<div class="flex-m w-full p-b-33">
+						<div>
+							<p>
+								<label for="agree">Please agree to our complaint policy</label>
+								<input type="checkbox" title="agree"class="checkbox" id="agree" name="agree">
+							</p>
+						</div>
+
+						
+					</div>
+
+					<div class="container-login100-form-btn">
+						<div class="wrap-login100-form-btn">
+							<div class="login100-form-bgbtn"></div>
+							<button class="login100-form-btn" type="submit" value= "Sign up">
+								Sign Up
+							</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+
+</body>
+</html>
